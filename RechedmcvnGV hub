@@ -2,7 +2,7 @@ if game.CoreGui:FindFirstChild("FluxLib") or game.CoreGui:FindFirstChild("Messag
 
 local Flux = loadstring(game:HttpGet("https://lolcat.boo/assets/flux-fixed"))()
 local Window = Flux:Window("COOL HUB     ", "Doors", Color3.new(0,0.8), Enum.KeyCode.RightControl)
-local Tab = Window:Tab("Hỗ Trợ", "rbxassetid://6026568198")
+local Tab = Window:Tab("Hỗ Trợ", "rbxassetid://6026568197")
 local Tab2 = Window:Tab("Cài Đặt", "rbxassetid://6031763426")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
@@ -177,7 +177,7 @@ local function ApplySettings(Object)
                 if not Object.RushNew:WaitForChild("PlaySound").Playing then return end
             end
             local Color = ESP_Items[Object.Name] and Color3.new(1,1) or ESP_Entities[Object.Name] and Color3.new(1) or Color3.new(0,1,1)
-            if Object.Name == "RushMoving" or Object.Name == "AmbushMoving" or Object.Name == "Eyes" or Object.Name == "A60" or Object.Name == "A120" then
+            if Object.Name == "Vội Vã" or Object.Name == "Phục Kích" or Object.Name == "Mắt" or Object.Name == "A-60" or Object.Name == "A-120" then
                 for i = 1, 100 do
                     if Object:FindFirstChildOfClass("Part") then
                         break
@@ -193,9 +193,9 @@ local function ApplySettings(Object)
                 if IsValid then
                     if Bool then
                         local TXT = IsValid[1]
-                        if IsValid[1] == "Door" then
+                        if IsValid[1] == "Cửa" then
                             local RoomName
-                            if Floor.Value == "Rooms" then
+                            if Floor.Value == "Phòng" then
                                 RoomName = ""
                             else
                                 workspace.CurrentRooms:WaitForChild(tonumber(Object.Parent.Name) + 1,math.huge)
@@ -216,7 +216,7 @@ local function ApplySettings(Object)
                                 end
                                 RoomName = " (" .. NewString .. ")"
                             end
-                            TXT = "Door " .. (Floor.Value == "Rooms" and "A-" or "") .. tonumber(Object.Parent.Name) + 1 .. RoomName
+                            TXT = "Door " .. (Floor.Value == "Phòng" and "A-" or "") .. tonumber(Object.Parent.Name) + 1 .. RoomName
                         end
                         if IsValid[1] == "Vàng" then
                             TXT = Object:GetAttribute("Khỏi Vàng") .. " Vàng"
@@ -238,7 +238,7 @@ local function ApplySettings(Object)
                         Object.BillboardGui:Destroy()
                     end
                     local Target = Object
-                    if IsValid[1] == "Door" and Object.Parent.Name ~= "49" and Object.Parent.Name ~= "50" then
+                    if IsValid[1] == "Cửa" and Object.Parent.Name ~= "49" and Object.Parent.Name ~= "50" then
                         Target = Object:WaitForChild("Cửa")
                     end
                     if Bool then
@@ -515,7 +515,7 @@ Tab:Toggle("Xoá Giữ","Removes having to hold down the button for a long perio
         end
     end
 end)
-Tab:Toggle("Xoá Giữ","Lets you interact with Proximity Prompts through Parts. Could be useful for grabbing book faster.",false,function(Bool)
+Tab:Toggle("Phần Xoá","Lets you interact with Proximity Prompts through Parts. Could be useful for grabbing book faster.",false,function(Bool)
     InteractNoclip = Bool
     for _,Object in pairs(workspace.CurrentRooms:GetDescendants()) do
         if Object:IsA("ProximityPrompt") then
