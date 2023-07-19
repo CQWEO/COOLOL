@@ -1,14 +1,14 @@
 if game.CoreGui:FindFirstChild("FluxLib") or game.CoreGui:FindFirstChild("Message") then return end
 
 local Flux = loadstring(game:HttpGet("https://lolcat.boo/assets/flux-fixed"))()
-local Window = Flux:Window("RGV HUB      ", "Doors", Color3.new(0,0.8), Enum.KeyCode.RightControl)
-local Tab = Window:Tab("Main", "rbxassetid://6026568198")
-local Tab2 = Window:Tab("Visual", "rbxassetid://6031763426")
+local Window = Flux:Window("COOL HUB     ", "Doors", Color3.new(0,0.8), Enum.KeyCode.RightControl)
+local Tab = Window:Tab("Hỗ Trợ", "rbxassetid://6026568198")
+local Tab2 = Window:Tab("Cài Đặt", "rbxassetid://6031763426")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local TextChatService = game:GetService("TextChatService")
-local Lighting = game:GetService("Lighting")
+local Light = game:GetService("Lighting")
 local LocalPlayer = Players.LocalPlayer
 local Character = LocalPlayer.Character
 local Backpack = LocalPlayer.Backpack
@@ -17,7 +17,7 @@ local AvatarIcon = Players:GetUserThumbnailAsync(LocalPlayer.UserId,Enum.Thumbna
 local MainUI = LocalPlayer.PlayerGui.MainUI
 local Main_Game = MainUI.Initiator.Main_Game
 local Modules = Main_Game.RemoteListener.Modules
-local SpeedBoost = 5
+local SpeedBoost = 6
 local ScreechSafeRooms = {}
 local PrimaryPart = Character.PrimaryPart
 local CurrentRooms = workspace.CurrentRooms
@@ -50,7 +50,6 @@ local DisableEyes = true
 local DisableGlitch = true
 local DisableSnare = true
 local WasteItems = true
-local GodMode = true
 local ScreechModule
 local CustomScreechModule
 local TimothyModule
@@ -219,8 +218,8 @@ local function ApplySettings(Object)
                             end
                             TXT = "Door " .. (Floor.Value == "Rooms" and "A-" or "") .. tonumber(Object.Parent.Name) + 1 .. RoomName
                         end
-                        if IsValid[1] == "Gold" then
-                            TXT = Object:GetAttribute("GoldValue") .. " Gold"
+                        if IsValid[1] == "Vàng" then
+                            TXT = Object:GetAttribute("Khỏi Vàng") .. " Vàng"
                         end
                         local UI = Instance.new("BillboardGui",Object)
                         UI.Size = UDim2.new(0,1000,0,30)
@@ -240,7 +239,7 @@ local function ApplySettings(Object)
                     end
                     local Target = Object
                     if IsValid[1] == "Door" and Object.Parent.Name ~= "49" and Object.Parent.Name ~= "50" then
-                        Target = Object:WaitForChild("Door")
+                        Target = Object:WaitForChild("Cửa")
                     end
                     if Bool then
                         local Highlight = Instance.new("Highlight",Target)
@@ -251,7 +250,7 @@ local function ApplySettings(Object)
                     end
                 end
             end
-            ApplyHighlight(ESP_Items[Object.Name],ItemESP)
+            ApplyHighlight(ESP_Items[Object.Name],ItemEsp)
             ApplyHighlight(ESP_Entities[Object.Name],EntityESP)
             ApplyHighlight(ESP_Other[Object.Name],OtherESP)
         end
@@ -259,7 +258,7 @@ local function ApplySettings(Object)
             if InstantInteract then
                 Object.HoldDuration = -Object.HoldDuration
             end
-            if IncreasedDistance and Object.Parent and Object.Parent.Name ~= "Shears" then
+            if IncreasedDistance and Object.Parent and Object.Parent.Name ~= "Kéo" then
                 Object.MaxActivationDistance *= IncreasedDistance and 2 or 0.5
             end
             if InteractNoclip then
@@ -277,7 +276,7 @@ local function ApplySettings(Object)
                 end
             end)
         end
-        if Object.Name == "DoorFake" then
+        if Object.Name == "Của sai" then
             Object:WaitForChild("Hidden").CanTouch = not DisableDupe
             if Object:FindFirstChild("LockPart") then
                 Object.LockPart:WaitForChild("UnlockPrompt", 1).Enabled = not DisableDupe
@@ -288,7 +287,7 @@ local function ApplySettings(Object)
                 DoorNumber.Text = DisableDupe and "DUPE" or string.format("%0.4i",LatestRoom.Value)
             end
         end
-        if Object.Parent and Object.Parent.Name == "TriggerEventCollision" then
+        if Object.Parent and Object.Parent.Name == "Xoá Tìm Kiếm" then
             Object.CanCollide = not DisableSeek
             Object.CanTouch = not DisableSeek
         end
@@ -312,8 +311,8 @@ local function ApplySettings(Object)
                 ReplacePainting(Object,"rbxassetid://12836336900","Kevin")
             end
         end
-        if Object.Name == "Shears" and Object.Parent.Name == "LootItem" then
-            if not Object:FindFirstChild("FakeShears") then
+        if Object.Name == "Kéo" and Object.Parent.Name == "Lấy vật phẩm" then
+            if not Object:FindFirstChild("Kéo Giả") then
                 local FakePrompt = Object.ModulePrompt:Clone()
                 Object.ModulePrompt.Enabled = false
                 FakePrompt.Parent = Object
@@ -325,25 +324,25 @@ local function ApplySettings(Object)
                         return
                     end
                     local NoclipOn = Noclip
-                    Noclip = false
+                    Noclip = true
                     repeat
                         Character:PivotTo(Object.Main.CFrame + Vector3.new(0,5,0))
                         fireproximityprompt(Object.ModulePrompt)
                         Character.PrimaryPart.Velocity = Vector3.new()
                         task.wait()
-                    until Character:FindFirstChild("Shears")
+                    until Character:FindFirstChild("Kéo")
                     Character:PivotTo(PrimaryPart.CFrame + Vector3.new(0,7,0))
                     Noclip = NoclipOn
                 end)
             end
         end
-        if Object.Name == "Eyes" then
+        if Object.Name == "Mắt" then
             EyesOnMap = true
             if DisableEyes then
                 MotorReplication:FireServer(0,-120,0,false)
             end
         end
-        if Object.Name == "Snare" then
+        if Object.Name == "Gai" then
             Object.Hitbox.CanTouch = not DisableSnare
         end
     end)
@@ -374,7 +373,7 @@ local function ApplyCharacter(DontYield)
         Character:PivotTo(CFrame.new(Humanoid.MoveDirection * 100000 * -1))
         Character:GetPropertyChangedSignal("WorldPivot"):Wait()
         task.wait(0.1)
-        NoclipNext = false
+        NoclipNext = true
     end)
     Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
         if ClosetExitFix and Character:FindFirstChild("Collision") and Character:GetAttribute("Hiding") == true and tick() - HideTick > 1 then
@@ -400,8 +399,8 @@ LocalPlayer.CharacterAdded:Connect(function(NewCharacter)
 end)
 workspace.DescendantAdded:Connect(ApplySettings)
 workspace.ChildRemoved:Connect(function(Object)
-    if Object.Name == "Eyes" then
-        if not workspace:FindFirstChild("Eyes") then
+    if Object.Name == "Mắt" then
+        if not workspace:FindFirstChild("Mắt") then
             EyesOnMap = false
         end
     end
@@ -432,32 +431,32 @@ Tab:Toggle("Closet Exit Fix","Fixes the bug where you can't exit a closet right 
     ClosetExitFix = Bool
 end)
 if Floor.Value == "Hotel" or Floor.Value == "Fools" then
-    Tab:Toggle("Disable Dupe Doors","Makes it so you can't open duped doors",false,function(Bool)
+    Tab:Toggle("Xoá Cửa Sai","Makes it so you can't open duped doors",false,function(Bool)
         DisableDupe = Bool
         for _,Object in pairs(workspace.CurrentRooms:GetDescendants()) do
-            if Object.Name == "DoorFake" then
+            if Object.Name == "Cửa Sai" then
                 ApplySettings(Object)
             end
         end
     end)
-    Tab:Toggle("Disable Seek Trigger","Makes it so you can't trigger Seek to spawn. Other players still can.",false,function(Bool)
+    Tab:Toggle("Xoá Tìm Kiếm","Makes it so you can't trigger Seek to spawn. Other players still can.",false,function(Bool)
         DisableSeek = Bool
         for _,Object in pairs(workspace.CurrentRooms:GetDescendants()) do
-            if Object.Name == "Collision" then
+            if Object.Name == "Tìm Kiếm" then
                 ApplySettings(Object)
             end
         end
     end)
-    Tab:Toggle("Disable Snare","Makes it so you won't get stunned or take damage from Snare when stepping on it.",false,function(Bool)
+    Tab:Toggle("Xoá Gai","Makes it so you won't get stunned or take damage from Snare when stepping on it.",false,function(Bool)
         DisableSnare = Bool
         for _,Object in pairs(workspace.CurrentRooms:GetDescendants()) do
-            if Object.Name == "Snare" then
+            if Object.Name == "Gai" then
                 ApplySettings(Object)
             end
         end
     end)
 end
-Tab:Toggle("Enable All Interactions","Sets the Enabled property of all Proximity Prompts to true. Useful for getting to the Rooms without a Skeleton Key.",false,function(Bool)
+Tab:Toggle("Xoá Hành Động","Sets the Enabled property of all Proximity Prompts to true. Useful for getting to the Rooms without a Skeleton Key.",false,function(Bool)
     EnableInteractions = Bool
     for _,Object in pairs(workspace.CurrentRooms:GetDescendants()) do
         if Object:IsA("ProximityPrompt") then
@@ -483,24 +482,24 @@ Tab:Toggle("Enable All Interactions","Sets the Enabled property of all Proximity
         end
     end
 end)
-Tab:Toggle("Eyes Invincibility","Makes the game (and other players) think you are looking down whenever eyes spawns.",false,function(Bool)
+Tab:Toggle("Xoá Sát Thương Mắt","Makes the game (and other players) think you are looking down whenever eyes spawns.",false,function(Bool)
     DisableEyes = Bool
-    if workspace:FindFirstChild("Eyes") then
+    if workspace:FindFirstChild("Mắt") then
         MotorReplication:FireServer(0,DisableEyes and -120 or 0,0,false)
     end
 end)
-Tab:Toggle("Increased Door Opening Range","Makes it so you can open doors from much further away.",false,function(Bool)
+Tab:Toggle("Mở Cửa Xa","Makes it so you can open doors from much further away.",false,function(Bool)
     if Bool then
         DoorRange = RunService.Heartbeat:Connect(function()
             if not workspace:FindFirstChild("A120") then
-                CurrentRooms:WaitForChild(LatestRoom.Value):WaitForChild("Door"):WaitForChild("ClientOpen"):FireServer()
+                CurrentRooms:WaitForChild(LatestRoom.Value):WaitForChild("Cửa"):WaitForChild("ClientOpen"):FireServer()
             end
         end)
     else
         DoorRange:Disconnect()
     end
 end)
-Tab:Toggle("Increased Interaction Range","Doubles the Max Activation Distance for Proximity Prompts.",false,function(Bool)
+Tab:Toggle("Xoá Giữ","Doubles the Max Activation Distance for Proximity Prompts.",false,function(Bool)
     IncreasedDistance = Bool
     for _,Object in pairs(workspace.CurrentRooms:GetDescendants()) do
         if Object:IsA("ProximityPrompt") then
@@ -508,7 +507,7 @@ Tab:Toggle("Increased Interaction Range","Doubles the Max Activation Distance fo
         end
     end
 end)
-Tab:Toggle("Instant Interact","Removes having to hold down the button for a long period of time on Proximity Prompts.",false,function(Bool)
+Tab:Toggle("Xoá Giữ","Removes having to hold down the button for a long period of time on Proximity Prompts.",false,function(Bool)
     InstantInteract = Bool
     for _,Object in pairs(workspace.CurrentRooms:GetDescendants()) do
         if Object:IsA("ProximityPrompt") then
@@ -516,7 +515,7 @@ Tab:Toggle("Instant Interact","Removes having to hold down the button for a long
         end
     end
 end)
-Tab:Toggle("Interact Through Objects","Lets you interact with Proximity Prompts through Parts. Could be useful for grabbing book faster.",false,function(Bool)
+Tab:Toggle("Xoá Giữ","Lets you interact with Proximity Prompts through Parts. Could be useful for grabbing book faster.",false,function(Bool)
     InteractNoclip = Bool
     for _,Object in pairs(workspace.CurrentRooms:GetDescendants()) do
         if Object:IsA("ProximityPrompt") then
@@ -524,7 +523,7 @@ Tab:Toggle("Interact Through Objects","Lets you interact with Proximity Prompts 
         end
     end
 end)
-Tab:Toggle("No Breaker Puzzle","Tricks the game into thinking you completed the breaker puzzle at Room 100. May take up to 10 seconds to work.",false,function(Bool)
+Tab:Toggle("Không Có Mảnh","Tricks the game into thinking you completed the breaker puzzle at Room 100. May take up to 10 seconds to work.",false,function(Bool)
     NoBreaker = Bool
     while task.wait(1) do
         if not NoBreaker then
