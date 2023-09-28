@@ -180,7 +180,7 @@ window_player.toggle("instant use",false,function(val)
     holdconnect:Disconnect()
 end)
 
-local walkspeedslider = window_player.slider("walkspeed",16,25,1,16,function(val)
+local walkspeedslider = window_player.slider("walkspeed",16,25,25,16,function(val)
     hum.WalkSpeed = val
     flags.speed = val
 end)
@@ -203,7 +203,7 @@ window_esp.toggle("door esp",false,function(val)
             local door = room:WaitForChild("Door"):WaitForChild("Door")
             
             task.wait(0.1)
-            local h = esp(door,Color3.fromRGB(255,240,0),door,"Door")
+            local h = esp(door,Color3.fromRGB(255,240,0),door,"[DOOR]")
             table.insert(esptable.doors,h)
             
             door:WaitForChild("Open").Played:Connect(function()
@@ -247,11 +247,11 @@ window_esp.toggle("key/lever esp",false,function(val)
                     local parts = hitbox:GetChildren()
                     table.remove(parts,table.find(parts,hitbox:WaitForChild("PromptHitbox")))
                     
-                    local h = esp(parts,Color3.fromRGB(90,255,40),hitbox,"Key")
+                    local h = esp(parts,Color3.fromRGB(90,255,40),hitbox,"[KEY]")
                     table.insert(esptable.keys,h)
                     
                 elseif v.Name == "LeverForGate" then
-                    local h = esp(v,Color3.fromRGB(90,255,40),v.PrimaryPart,"Lever")
+                    local h = esp(v,Color3.fromRGB(90,255,40),v.PrimaryPart,"[LEVER]")
                     table.insert(esptable.keys,h)
                     
                     v.PrimaryPart:WaitForChild("SoundToPlay").Played:Connect(function()
@@ -302,7 +302,7 @@ window_esp.toggle("item esp",false,function(val)
                 task.wait(0.1)
                 
                 local part = (v:FindFirstChild("Handle") or v:FindFirstChild("Prop"))
-                local h = esp(part,Color3.fromRGB(160,190,255),part,v.Name)
+                local h = esp(part,Color3.fromRGB(160,190,255),part,[v.Name])
                 table.insert(esptable.items,h)
             end
         end
@@ -355,7 +355,7 @@ window_esp.toggle("book/breaker esp",false,function(val)
             if v:IsA("Model") and (v.Name == "LiveHintBook" or v.Name == "LiveBreakerPolePickup") then
                 task.wait(0.1)
                 
-                local h = esp(v,Color3.fromRGB(160,190,255),v.PrimaryPart,"Book")
+                local h = esp(v,Color3.fromRGB(160,190,255),v.PrimaryPart,"[MISC]")
                 table.insert(esptable.books,h)
                 
                 v.AncestryChanged:Connect(function()
@@ -396,9 +396,9 @@ window_esp.toggle("book/breaker esp",false,function(val)
     end
 end)
 
-local entitynames = {"RushMoving","AmbushMoving","Snare","A60","A120"}
+local entitynames = {"JeffTheKiller","BananaPeel","RushMoving","AmbushMoving","Snare","A60","A120"}
 
-window_player.label("credits: zoophiliaphobic#6287\noh my dayyzz",20)
+window_player.label("",20)
 window_esp.toggle("entity esp",false,function(val)
     flags.esprush = val
     
@@ -421,7 +421,7 @@ window_esp.toggle("entity esp",false,function(val)
                     local fig = figuresetup:WaitForChild("FigureRagdoll")
                     task.wait(0.1)
                     
-                    local h = esp(fig,Color3.fromRGB(255,25,25),fig.PrimaryPart,"Figure")
+                    local h = esp(fig,Color3.fromRGB(255,25,25),fig.PrimaryPart,"[FIGURE]")
                     table.insert(esptable.entity,h)
                 end 
             else
@@ -431,7 +431,7 @@ window_esp.toggle("entity esp",false,function(val)
                     if v:IsA("Model") and table.find(entitynames,v.Name) then
                         task.wait(0.1)
                         
-                        local h = esp(v:WaitForChild("Base"),Color3.fromRGB(255,25,25),v.Base,"Snare")
+                        local h = esp(v:WaitForChild("Base"),Color3.fromRGB(255,25,25),v.Base,"[SNARE]")
                         table.insert(esptable.entity,h)
                     end
                 end
@@ -473,10 +473,10 @@ window_esp.toggle("locker esp",false,function(val)
             if v:IsA("Model") then
                 task.wait(0.1)
                 if v.Name == "Wardrobe" then
-                    local h = esp(v.PrimaryPart,Color3.fromRGB(145,100,25),v.PrimaryPart,"Closet")
+                    local h = esp(v.PrimaryPart,Color3.new(1,1),v.PrimaryPart,"[WARDRODE]")
                     table.insert(esptable.lockers,h) 
                 elseif (v.Name == "Rooms_Locker" or v.Name == "Rooms_Locker_Fridge") then
-                    local h = esp(v.PrimaryPart,Color3.fromRGB(145,100,25),v.PrimaryPart,"Locker")
+                    local h = esp(v.PrimaryPart,Color3.new(1,1),v.PrimaryPart,"[LOCKER]")
                     table.insert(esptable.lockers,h) 
                 end
             end
@@ -529,10 +529,10 @@ window_esp.toggle("chest esp",false,function(val)
                 task.wait(0.1)
                 if v.Name == "ChestBox" then
                     warn(v.Name)
-                    local h = esp(v,Color3.fromRGB(205,120,255),v.PrimaryPart,"Chest")
+                    local h = esp(v,Color3.fromRGB(205,120,255),v.PrimaryPart,"[CHEST]")
                     table.insert(esptable.chests,h) 
                 elseif v.Name == "ChestBoxLocked" then
-                    local h = esp(v,Color3.fromRGB(255,120,205),v.PrimaryPart,"Locked Chest")
+                    local h = esp(v,Color3.fromRGB(255,120,205),v.PrimaryPart,"[LOCKED]")
                     table.insert(esptable.chests,h) 
                 end
             end
@@ -632,7 +632,7 @@ window_esp.toggle("goldpile esp",false,function(val)
                 
                 if goldvalue and goldvalue >= flags.goldespvalue then
                     local hitbox = v:WaitForChild("Hitbox")
-                    local h = esp(hitbox:GetChildren(),Color3.fromRGB(255,255,0),hitbox,"GoldPile [".. tostring(goldvalue).."]")
+                    local h = esp(hitbox:GetChildren(),Color3.fromRGB(255,255,0),hitbox,"[GOLD [".. tostring(goldvalue).."]]")
                     table.insert(esptable.gold,h)
                 end
             end
@@ -676,7 +676,7 @@ window_esp.toggle("goldpile esp",false,function(val)
     end
 end)
 
-window_esp.slider("minimum gold value",5,150,5,25,function(val)
+window_esp.slider("minimum gold value",5,150,150,25,function(val)
     flags.goldespvalue = val
 end)
 
